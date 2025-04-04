@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from common import ScrapingResult
+from .common import ScrapingResult
 from datetime import date, datetime, timedelta
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 import time
 import traceback
-from util import create_chromedriver
+from .util import create_chromedriver
 
 
 class AlphaScraper:
@@ -19,6 +19,9 @@ class AlphaScraper:
 
     def __init__(self):
         self._driver = create_chromedriver()
+
+    def close(self):
+        self._driver.quit()
 
     def scrape(self, branch: str, day: date) -> ScrapingResult | None:
         if day < datetime.now().date():

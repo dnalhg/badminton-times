@@ -11,6 +11,7 @@ def create_chromedriver():
     return uc.Chrome(
         driver_executable_path=chrome_driver_path,
         # browser_executable_path=browser_path,
+        use_subprocess=True,
     )
 
 

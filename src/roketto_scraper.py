@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from common import ScrapingResult
+from .common import ScrapingResult
 from datetime import date, datetime, timedelta
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 import time
 import traceback
-from util import create_chromedriver, type_like_human
+from .util import create_chromedriver, type_like_human
 
 
 class RokettoScraper:
@@ -25,6 +25,9 @@ class RokettoScraper:
 
         self._username = username
         self._password = password
+
+    def close(self):
+        self._driver.quit()
 
     def scrape(self, day: date) -> ScrapingResult | None:
         if day < datetime.now().date():
