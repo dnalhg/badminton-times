@@ -21,6 +21,10 @@ class AlphaScraper:
         self._driver = create_chromedriver()
 
     def scrape(self, branch: str, day: date) -> ScrapingResult | None:
+        if day < datetime.now().date():
+            print(f"{day} is before today")
+            return None
+
         page_source = self._get_page_source(branch, day)
         if page_source is None:
             return None
@@ -87,9 +91,6 @@ class AlphaScraper:
             pass
 
     def _get_page_source(self, location: str, day: date):
-        if day < datetime.now().date():
-            print(f"{day} is before today")
-            return None
         wait = WebDriverWait(self._driver, 2)
 
         if self._driver.current_url != self._SITE_URL:
@@ -151,8 +152,8 @@ class AlphaScraper:
 if __name__ == "__main__":
     scraper = AlphaScraper()
     try:
-        day = datetime.strptime("2025-04-05", "%Y-%m-%d").date()
-        for i in range(1):
+        day = datetime.now().date()
+        for i in range(6):
             for location in scraper.LOCATIONS:
                 print(scraper.scrape(location, day + timedelta(days=i)))
     except Exception as e:
