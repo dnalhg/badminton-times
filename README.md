@@ -13,5 +13,5 @@ pip install -r requirements.txt
 
 ### Run
 ```
-python main.py
+python main.py --start-date=YYYY-mm-dd --end-date=YYYY-mm-dd
 ```
